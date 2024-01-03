@@ -1,0 +1,34 @@
+專案主題：基本RESTful API服務
+
+專案要求：
+
+HTTP Server：
+
+使用Go語言創建一個基本的HTTP伺服器，監聽特定端口。
+RESTful API：
+
+實現基本的CRUD (Create, Read, Update, Delete) 操作，例如管理用戶資訊或記事。
+資料庫存取：
+
+使用Go的資料庫相關套件，如database/sql和sql套件，實現與資料庫的連接和基本的資料庫操作。
+路由管理：
+
+使用一個輕量的路由套件，如gorilla/mux，來管理API的路由。
+中間件：
+
+實現一個簡單的中間件，例如用於請求記錄、身份驗證等。
+錯誤處理：
+
+處理API端點可能發生的錯誤，並返回合適的錯誤訊息。
+文件化：
+
+使用Swagger等工具，為你的API生成基本的文件。
+預期效果：
+這個專案將展示你對Go語言在後端開發中的運用能力，以及對RESTful API設計和資料庫操作的理解。同時，你能夠展示對中間件的應用和基本的錯誤處理。
+
+
+前端用一個簡易的WEB PAGE來稿，有個按鈕就可以 :https://webflow.com/templates/html/blurr-coming-soon-website-template
+
+
+資料: json格式，包含位置、貓的數量
+

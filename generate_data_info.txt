@@ -1,0 +1,5 @@
+# Run as Default (30, 10, 30, 2022-01-01)
+python generate_data.py
+
+# Run as Argparse (int, int, int, str)
+python generate_data.py --max_position 5 --max_num 10 --days 5 --start_date 2022-11-11
