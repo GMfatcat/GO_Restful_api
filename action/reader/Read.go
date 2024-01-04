@@ -3,29 +3,26 @@ package reader
 import (
 	"encoding/json"
 	"fmt"
+	"go_Restful_api/action/common"
+	"go_Restful_api/action/connector"
 	"io/ioutil"
 	"log"
 	"path/filepath"
+	"strings"
 )
 
-type Data struct {
-	Lons   []float64 `json:"lons"`
-	Lats   []float64 `json:"lats"`
-	Counts []int     `json:"counts"`
-}
-
-func JsonReader(filePath string) (Data, error) {
+func JsonReader(filePath string) (common.Data, error) {
 	// 讀取 JSON 檔案
 	jsonData, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return Data{}, fmt.Errorf("Error reading JSON file: %v", err)
+		return common.Data{}, fmt.Errorf("Error reading JSON file: %v", err)
 	}
 
 	// 解析 JSON 檔案
-	var data Data
+	var data common.Data
 	err = json.Unmarshal(jsonData, &data)
 	if err != nil {
-		return Data{}, fmt.Errorf("Error decoding JSON file: %v", err)
+		return common.Data{}, fmt.Errorf("Error decoding JSON file: %v", err)
 	}
 
 	return data, nil
@@ -37,8 +34,16 @@ func ReadAllFiles(directoryPath string) (int, error) {
 	// Count valid json files
 	var jsonFileCount int = 0
 
-	fmt.Println("Read All Files")
+	// Connect to PostgreSQL database
+	fmt.Println("Connect to Database")
+	db, err := connector.ConnectDB()
+	if err != nil {
+		return jsonFileCount, fmt.Errorf("Error connecting to database: %v", err)
+	}
+	defer db.Close()
+
 	// Get all files under directory
+	fmt.Println("Read All Files")
 	files, err := ioutil.ReadDir(directoryPath)
 	if err != nil {
 		return jsonFileCount, fmt.Errorf("Error reading directory: %v", err)
@@ -54,9 +59,26 @@ func ReadAllFiles(directoryPath string) (int, error) {
 			continue // 如果不是 JSON 檔案，就跳過
 		}
 
+		// Read Data
 		data, err := JsonReader(filePath)
 		if err != nil {
 			log.Printf("Error: %v", err)
+		}
+
+		// Save data to Postgres Table
+		convertedFileName, err := convertFileName(filePath)
+		if err != nil {
+			fmt.Println("Convert Name Error:", err)
+		}
+		// 檢查並創建表格
+		err = connector.CheckDBTable(db, convertedFileName)
+		if err != nil {
+			fmt.Println("CheckTable Error:", err)
+		}
+		// Insert data into table
+		err = connector.InsertData(db, data, convertedFileName)
+		if err != nil {
+			fmt.Println("Insert Error:", err)
 		}
 
 		// Show data
@@ -65,9 +87,23 @@ func ReadAllFiles(directoryPath string) (int, error) {
 		fmt.Println("lons:", data.Lats)
 		fmt.Println("Counts:", data.Counts)
 
+		// Record Processed Files
 		jsonFileCount++
 
 	}
 
 	return jsonFileCount, nil
+}
+
+func convertFileName(filePath string) (string, error) {
+	// 提取檔名（去除路徑）
+	baseName := filepath.Base(filePath)
+	// 去除擴展名 .json
+	baseNameWithoutExt := strings.TrimSuffix(baseName, ".json")
+	// 將 - 替換為 _
+	replacedUnderscore := strings.ReplaceAll(baseNameWithoutExt, "-", "_")
+	// 在前面加上 data_
+	result := "data_" + replacedUnderscore
+
+	return result, nil
 }

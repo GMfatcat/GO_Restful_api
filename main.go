@@ -12,7 +12,7 @@ func main() {
 	createrValue := creater.Creater
 	fmt.Println("Creater:", createrValue)
 
-	// Read all data
+	// Read all data & save to SQL database
 	folderPath := "./data"
 	jsonFileCount, err := reader.ReadAllFiles(folderPath)
 	if err != nil {

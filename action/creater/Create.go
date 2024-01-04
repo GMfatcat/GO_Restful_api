@@ -1,3 +1,3 @@
 package creater
 
-var Creater int = 10
+var Creater int = 1
