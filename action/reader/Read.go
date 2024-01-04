@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"go_Restful_api/action/common"
 	"go_Restful_api/action/connector"
+	"go_Restful_api/action/middleware"
 	"io/ioutil"
 	"log"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
+/* Setup */
 func JsonReader(filePath string) (common.Data, error) {
 	// 讀取 JSON 檔案
 	jsonData, err := ioutil.ReadFile(filePath)
@@ -106,4 +109,60 @@ func convertFileName(filePath string) (string, error) {
 	result := "data_" + replacedUnderscore
 
 	return result, nil
+}
+
+/* Query */
+func ClientQuery(user, query string) error {
+
+	// Record query by middleware logging
+	err := middleware.QueryLogger(user, query)
+	if err != nil {
+		return err
+	}
+
+	// Format check before query --> security issue
+	queryCheckResult := queryFormatCheck(query)
+
+	if queryCheckResult {
+
+		// modify to table name : data_xxxx_xx_xx
+		queryUnderscore := strings.ReplaceAll(query, "-", "_")
+		tableName := "data_" + queryUnderscore
+		// Execute Query
+		err := execClientQuery(tableName)
+		if err != nil {
+			return err
+		}
+
+	} else {
+
+		return fmt.Errorf("Query format is not valid")
+	}
+
+	return nil
+}
+
+// query format: 2022-01-01
+func queryFormatCheck(query string) bool {
+
+	// use regex to match string
+	datePattern := `^\d{4}-\d{2}-\d{2}$`
+	match, _ := regexp.MatchString(datePattern, query)
+
+	return match
+}
+
+func execClientQuery(queryTableName string) error {
+	db, err := connector.ConnectDB()
+	if err != nil {
+		return fmt.Errorf("Error connecting to database: %v", err)
+	}
+	defer db.Close()
+
+	queryErr := connector.QueryData(db, queryTableName)
+	if queryErr != nil {
+		return queryErr
+	}
+
+	return nil
 }

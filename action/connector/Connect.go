@@ -77,3 +77,58 @@ func InsertData(db *sql.DB, data common.Data, tableName string) error {
 
 	return nil
 }
+
+func QueryData(db *sql.DB, queryTableName string) error {
+
+	// Check if table exists
+	exists, err := tableExists(db, queryTableName)
+	if err != nil {
+		return err
+	}
+
+	if !exists {
+		return fmt.Errorf("TABLE : %s Not found", queryTableName)
+	} else {
+		// List all data of table
+		err := listAllTableData(db, queryTableName)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+
+}
+
+func listAllTableData(db *sql.DB, queryTableName string) error {
+
+	rows, err := db.Query("SELECT * FROM " + queryTableName)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	var lons, lats float64
+	var counts int
+	var rowCounts int = 0
+
+	// List all data
+	fmt.Printf("TABLE : %s\nrow | lons | lats | counts|\n", queryTableName)
+	for rows.Next() {
+
+		err := rows.Scan(&lons, &lats, &counts)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("%d |%.4f| |%.4f| |%d|\n", rowCounts, lons, lats, counts)
+		rowCounts++
+	}
+	fmt.Printf("\n(Total %d rows)\n", rowCounts)
+
+	if err := rows.Err(); err != nil {
+		return err
+	}
+
+	return nil
+
+}

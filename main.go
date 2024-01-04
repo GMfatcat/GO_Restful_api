@@ -2,22 +2,46 @@ package main
 
 import (
 	"fmt"
-	"go_Restful_api/action/creater"
 	"go_Restful_api/action/reader"
 	"log"
 )
 
 func main() {
 	fmt.Println("Starting")
-	createrValue := creater.Creater
-	fmt.Println("Creater:", createrValue)
 
-	// Read all data & save to SQL database
-	folderPath := "./data"
-	jsonFileCount, err := reader.ReadAllFiles(folderPath)
-	if err != nil {
-		log.Fatal(err)
+	// add data to sql section (do it if no table in sql)
+	var addNewData bool = false
+	if addNewData {
+
+		// Read all data & save to SQL database
+		folderPath := "./data"
+		jsonFileCount, err := reader.ReadAllFiles(folderPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("Total JSON files processed: %d\n", jsonFileCount)
 	}
-	fmt.Printf("Total JSON files processed: %d\n", jsonFileCount)
+
+	// Query Testing
+	fmt.Println("Querying...")
+	// exist case
+	fmt.Println("----------------")
+	var user string = "Fatcat"
+	var query string = "2022-01-01"
+	queryErr := reader.ClientQuery(user, query)
+	if queryErr != nil {
+
+		log.Fatal(queryErr)
+
+	}
+	// non-exist case
+	fmt.Println("----------------")
+	var query2 string = "2022-01-31"
+	query2Err := reader.ClientQuery(user, query2)
+	if query2Err != nil {
+
+		log.Fatal(query2Err)
+
+	}
 
 }
