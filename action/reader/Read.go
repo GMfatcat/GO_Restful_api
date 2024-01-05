@@ -129,7 +129,7 @@ func ClientQuery(user, query string) error {
 		queryUnderscore := strings.ReplaceAll(query, "-", "_")
 		tableName := "data_" + queryUnderscore
 		// Execute Query
-		err := execClientQuery(tableName)
+		err := execClientQuery(user, tableName)
 		if err != nil {
 			return err
 		}
@@ -152,14 +152,20 @@ func queryFormatCheck(query string) bool {
 	return match
 }
 
-func execClientQuery(queryTableName string) error {
+func execClientQuery(user, queryTableName string) error {
 	db, err := connector.ConnectDB()
 	if err != nil {
 		return fmt.Errorf("Error connecting to database: %v", err)
 	}
 	defer db.Close()
 
-	queryErr := connector.QueryData(db, queryTableName)
+	status, queryErr := connector.QueryData(db, queryTableName)
+	// Log status first in case of error return and miss logging
+	responseErr := middleware.ResponseLogger(user, queryTableName, status)
+	if responseErr != nil {
+		return responseErr
+	}
+
 	if queryErr != nil {
 		return queryErr
 	}

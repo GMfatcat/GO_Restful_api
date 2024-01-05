@@ -36,8 +36,9 @@ func main() {
 	}
 	// non-exist case
 	fmt.Println("----------------")
-	var query2 string = "2022-01-31"
-	query2Err := reader.ClientQuery(user, query2)
+	var user2 string = "Batman"
+	var query2 string = "2022-01-32"
+	query2Err := reader.ClientQuery(user2, query2)
 	if query2Err != nil {
 
 		log.Fatal(query2Err)

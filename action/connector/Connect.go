@@ -78,25 +78,31 @@ func InsertData(db *sql.DB, data common.Data, tableName string) error {
 	return nil
 }
 
-func QueryData(db *sql.DB, queryTableName string) error {
+// Handle http code status, return http code & error //
+/*
+200 : ok
+404 : not found
+500 : internal server error
+*/
+func QueryData(db *sql.DB, queryTableName string) (int, error) {
 
 	// Check if table exists
 	exists, err := tableExists(db, queryTableName)
 	if err != nil {
-		return err
+		return 500, err
 	}
 
 	if !exists {
-		return fmt.Errorf("TABLE : %s Not found", queryTableName)
+		return 404, fmt.Errorf("TABLE : %s Not found", queryTableName)
 	} else {
 		// List all data of table
 		err := listAllTableData(db, queryTableName)
 		if err != nil {
-			return err
+			return 500, err
 		}
 	}
 
-	return nil
+	return 200, nil
 
 }
 

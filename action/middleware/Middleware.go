@@ -24,11 +24,12 @@ func QueryLogger(user, query string) error {
 	return nil
 }
 
-// HOW TO CONNECT TO RESPONSE TBD
-func ResponseLogger(query string, httpCode int) error {
+// Record after query
+func ResponseLogger(user, query string, httpCode int) error {
 
 	currentTime := time.Now().Format(time.RFC3339)
-	logEntry := fmt.Sprintf("Time: %s, Query: %s, HTTP Code: %d", currentTime, query, httpCode)
+	logEntry := fmt.Sprintf("Time: %s, User: %s, Query: %s, HTTP Code: %d",
+		currentTime, user, query, httpCode)
 	// Print and save to log
 	fmt.Println(logEntry)
 	err := writeToLogFile(logEntry)
