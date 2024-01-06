@@ -59,6 +59,7 @@ function clearResults() {
     // 清除顯示的數字和 JSON 內容
     document.getElementById('jsonResult').innerText = '';
     document.getElementById('numberResult').innerText = 'Number: ';
+    document.getElementById('inputText').value = '';
 }
 
 // 新增函數，處理按鈕點擊事件，發送輸入框內的字串給後端

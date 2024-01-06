@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
+	"time"
 )
 
 type NumberResponse struct {
@@ -16,8 +18,10 @@ type InputData struct {
 }
 
 func handleGetNumber(w http.ResponseWriter, r *http.Request) {
-	// 在這裡可以生成一個數字，這裡使用了固定的數字 42 作為範例
-	numberResponse := NumberResponse{Number: 42}
+	// 在這裡可以隨機生成一個數字(1-1000)
+	rand.Seed(time.Now().UnixNano())
+	randomNumber := rand.Intn(1000) + 1
+	numberResponse := NumberResponse{Number: randomNumber}
 
 	// 將數字轉換為 JSON 格式並返回給前端
 	w.Header().Set("Content-Type", "application/json")
