@@ -60,3 +60,24 @@ function clearResults() {
     document.getElementById('jsonResult').innerText = '';
     document.getElementById('numberResult').innerText = 'Number: ';
 }
+
+// 新增函數，處理按鈕點擊事件，發送輸入框內的字串給後端
+function sendInput() {
+    const inputText = document.getElementById('inputText').value;
+
+    // 使用 Fetch API 發送 POST 請求
+    fetch('/receiveInput', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ inputText }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response from server:', data);
+    })
+    .catch(error => {
+        console.error('Error sending input to server:', error);
+    });
+}

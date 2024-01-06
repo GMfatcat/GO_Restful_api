@@ -11,6 +11,10 @@ type NumberResponse struct {
 	Number int `json:"number"`
 }
 
+type InputData struct {
+	InputText string `json:"inputText"`
+}
+
 func handleGetNumber(w http.ResponseWriter, r *http.Request) {
 	// 在這裡可以生成一個數字，這裡使用了固定的數字 42 作為範例
 	numberResponse := NumberResponse{Number: 42}
@@ -36,10 +40,30 @@ func handleGetJSON(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonData)
 }
 
+// 處理接收前端傳來的字串
+func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
+	// 紀錄使用者的ip
+	userIP := r.RemoteAddr
+	// 解碼 JSON 資料
+	var inputData InputData
+	if err := json.NewDecoder(r.Body).Decode(&inputData); err != nil {
+		http.Error(w, "Error decoding JSON", http.StatusBadRequest)
+		return
+	}
+	// 印出接收到的字串和IP
+	fmt.Printf("Received input: %s, User IP: %s\n", inputData.InputText, userIP)
+
+	// 回傳回應給前端
+	response := map[string]string{"message": "Input received successfully"}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
 func main() {
 	// 設定伺服器路由
 	http.HandleFunc("/getNumber", handleGetNumber)
 	http.HandleFunc("/getJSON", handleGetJSON)
+	http.HandleFunc("/receiveInput", handleReceiveInput)
 
 	// 設定靜態資源伺服器，指向存放HTML文件的資料夾
 	http.Handle("/", http.FileServer(http.Dir("static")))
