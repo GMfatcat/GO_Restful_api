@@ -108,7 +108,8 @@ func QueryData(db *sql.DB, queryTableName string) (int, error) {
 
 func listAllTableData(db *sql.DB, queryTableName string) error {
 
-	rows, err := db.Query("SELECT * FROM " + queryTableName)
+	query := fmt.Sprintf("SELECT * FROM %s", queryTableName)
+	rows, err := db.Query(query)
 	if err != nil {
 		return err
 	}
