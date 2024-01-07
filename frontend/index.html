@@ -94,7 +94,7 @@
 		console.log('Search Input:', searchInputValue);
 		console.log('Attempting to redirect');
 		localStorage.setItem('searchInputValue', searchInputValue);
-        // 在這裡執行跳轉操作，跳轉到result.html, 設定1.5秒後跳轉
+        // 在這裡執行跳轉操作，跳轉到result.html, 設定0.1秒後跳轉
 		setTimeout(function () { window.location.href = 'result.html?v='+ Math.random();}, 100); // 100毫秒（0.1秒）延遲
     });
 	</script>
