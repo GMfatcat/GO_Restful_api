@@ -112,6 +112,78 @@ func convertFileName(filePath string) (string, error) {
 }
 
 /* Query */
+// query format: 2022-01-01
+func queryFormatCheck(query string) bool {
+
+	// use regex to match string
+	datePattern := `^\d{4}-\d{2}-\d{2}$`
+	match, _ := regexp.MatchString(datePattern, query)
+
+	return match
+}
+
+/* Query v2 - for testing*/
+func ClientQuery2(user, query string) (bool, error) {
+
+	var querySuccess bool = false
+
+	// Record query by middleware logging (false for query faliure)
+	err := middleware.QueryLogger(user, query)
+	if err != nil {
+		return querySuccess, err
+	}
+
+	// Format check before query --> security issue
+	queryCheckResult := queryFormatCheck(query)
+
+	if queryCheckResult {
+
+		// modify to table name : data_xxxx_xx_xx
+		queryUnderscore := strings.ReplaceAll(query, "-", "_")
+		tableName := "data_" + queryUnderscore
+		// Execute Query
+		execQuerySuccess, err := execClientQuery2(user, tableName)
+		querySuccess = execQuerySuccess
+		if err != nil {
+			return querySuccess, err
+		}
+
+	} else {
+
+		return querySuccess, fmt.Errorf("Query format is not valid")
+	}
+
+	return querySuccess, nil
+}
+
+func execClientQuery2(user, queryTableName string) (bool, error) {
+	// flag to record query success or failure
+	var querySuccess bool = false
+	db, err := connector.ConnectDB()
+	if err != nil {
+		return querySuccess, fmt.Errorf("Error connecting to database: %v", err)
+	}
+	defer db.Close()
+
+	// status = 200 is ok, otherwise query not successful
+	status, queryErr := connector.QueryData(db, queryTableName)
+	if status == 200 {
+		querySuccess = true
+	}
+	// Log status first in case of error return and miss logging
+	responseErr := middleware.ResponseLogger(user, queryTableName, status)
+	if responseErr != nil {
+		return querySuccess, responseErr
+	}
+
+	if queryErr != nil {
+		return querySuccess, queryErr
+	}
+
+	return querySuccess, nil
+}
+
+/* Query v1*/
 func ClientQuery(user, query string) error {
 
 	// Record query by middleware logging
@@ -140,16 +212,6 @@ func ClientQuery(user, query string) error {
 	}
 
 	return nil
-}
-
-// query format: 2022-01-01
-func queryFormatCheck(query string) bool {
-
-	// use regex to match string
-	datePattern := `^\d{4}-\d{2}-\d{2}$`
-	match, _ := regexp.MatchString(datePattern, query)
-
-	return match
 }
 
 func execClientQuery(user, queryTableName string) error {
