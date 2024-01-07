@@ -19,12 +19,12 @@
     function goBack() {
         window.history.back();
     }
-	
+
 	document.addEventListener('DOMContentLoaded', function () {
     // get value from localStorage
     var storedSearchInputValue = localStorage.getItem('searchInputValue');
     console.log('Stored Search Input:', storedSearchInputValue);
-	
+
 	// show in the page
 	var searchResultElement = document.getElementById('searchResult');
 	searchResultElement.innerHTML = 'Search Input: ' + storedSearchInputValue;

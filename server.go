@@ -15,14 +15,23 @@ import (
 	"go_Restful_api/action/common"
 	"go_Restful_api/action/reader"
 	"io/ioutil"
+	"log"
 	"net/http"
+)
+
+const (
+	port         = ":9487"
+	dataDir      = "./data/"
+	successMsg   = "Input received successfully"
+	errorMsg     = "Error processing request"
+	getDataError = "Error getting data"
 )
 
 func handleGetJSON(querySuccess bool, queryFilename string) ([]byte, error) {
 	var emptyJSON = []byte("{}")
 	if querySuccess {
 		// 指定 JSON 文件的路徑
-		jsonFilePath := fmt.Sprintf("./data/%s.json", queryFilename)
+		jsonFilePath := fmt.Sprintf("%s%s.json", dataDir, queryFilename)
 
 		// 讀取 JSON 文件的內容
 		jsonData, err := ioutil.ReadFile(jsonFilePath)
@@ -49,12 +58,13 @@ func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
 	// 解碼 JSON 資料
 	var inputData common.InputData
 	if err := json.NewDecoder(r.Body).Decode(&inputData); err != nil {
-		http.Error(w, "Error decoding JSON", http.StatusBadRequest)
+		http.Error(w, errorMsg, http.StatusBadRequest)
+		log.Println("Error decoding JSON:", err)
 		return
 	}
 	// 印出接收到的字串和IP，並回傳回應給前端
 	fmt.Printf("Received input: %s, User IP: %s\n", inputData.InputText, userIP)
-	response := map[string]string{"message": "Input received successfully"}
+	response := map[string]string{"message": successMsg}
 	json.NewEncoder(w).Encode(response)
 	fmt.Println("Sent success message to frontend...")
 
@@ -62,15 +72,15 @@ func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
 	querySuccess, queryErr := backendProcess(userIP, inputData.InputText)
 	fmt.Println("Query status:", querySuccess)
 	if queryErr != nil {
-		fmt.Errorf("Query error: %v", queryErr)
-		http.Error(w, "Error processing query", http.StatusInternalServerError)
+		log.Println("Query error:", queryErr)
+		http.Error(w, errorMsg, http.StatusInternalServerError)
 		return
 	}
 	// get json data(real data or empty json)
 	jsonData, getDataErr := handleGetJSON(querySuccess, inputData.InputText)
-	if queryErr != nil {
-		fmt.Errorf("Get Data error: %v", getDataErr)
-		http.Error(w, "Error getting data", http.StatusInternalServerError)
+	if getDataErr != nil {
+		log.Println("Get Data error:", getDataErr)
+		http.Error(w, getDataError, http.StatusInternalServerError)
 		return
 	}
 
@@ -82,10 +92,12 @@ func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("Starting...")
+	// Router
+	http.HandleFunc("/receiveInput", handleReceiveInput)
 	// 設定靜態資源伺服器，指向存放HTML文件的資料夾
 	http.Handle("/", http.FileServer(http.Dir("frontend")))
 
 	// 啟動 HTTP 服務器，監聽在 8080 端口
-	fmt.Println("Server is running on http://localhost:9487")
-	http.ListenAndServe(":9487", nil)
+	fmt.Printf("Server is running on http://localhost%s\n", port)
+	http.ListenAndServe(port, nil)
 }
