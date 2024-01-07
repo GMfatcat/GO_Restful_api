@@ -38,6 +38,9 @@ func handleGetJSON(querySuccess bool, queryFilename string) ([]byte, error) {
 		if err != nil {
 			return emptyJSON, err
 		}
+		// show json data(only for checking)
+		// fmt.Println("JSON Data:")
+		// fmt.Println(string(jsonData))
 		return jsonData, nil
 	}
 
@@ -64,9 +67,6 @@ func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
 	}
 	// 印出接收到的字串和IP，並回傳回應給前端
 	fmt.Printf("Received input: %s, User IP: %s\n", inputData.InputText, userIP)
-	response := map[string]string{"message": successMsg}
-	json.NewEncoder(w).Encode(response)
-	fmt.Println("Sent success message to frontend...")
 
 	// 後端執行查詢
 	querySuccess, queryErr := backendProcess(userIP, inputData.InputText)

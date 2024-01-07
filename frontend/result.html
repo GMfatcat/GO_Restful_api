@@ -9,18 +9,49 @@
 <body>
 
 <h2>This is the Result Page</h2>
-<p>Content of the result page goes here.</p>
-<!-- 显示搜索输入值的元素 -->
+<p>Click the save button to save json file.</p>
+<!-- Show search results -->
 <div id="searchResult"></div>
 <p></p>
+<button onclick="saveJSON()">Save JSON</button>
 <button onclick="goBack()">Go Back to Homepage</button>
+<p>JSON: </p>
+<pre id="jsonResult"></pre>
 
 <script>
+    function saveJSON() {
+
+        const jsonData = document.getElementById('jsonResult').innerText;
+
+        if (jsonData !== '') {
+
+            console.log("Save JSON");
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            // 創建一個動態的 <a> 元素
+            const a = document.createElement('a');
+            a.href = url;
+            // 使用者可選下載位置/名稱
+            a.download = '';
+            document.body.appendChild(a);
+            // 觸發點擊事件，開始下載
+            a.click();
+            // 刪除動態創建的 <a> 元素
+            document.body.removeChild(a);
+            // 釋放 Blob 的 URL
+            URL.revokeObjectURL(url);
+
+        } else {
+            console.log("No JSON data, nothing to save");
+        }
+    }
+
     function goBack() {
         window.history.back();
     }
 
-	document.addEventListener('DOMContentLoaded', function () {
+	// Load JSON Data immediately after page load
+    document.addEventListener('DOMContentLoaded', function () {
     // get value from localStorage
     var storedSearchInputValue = localStorage.getItem('searchInputValue');
     console.log('Stored Search Input:', storedSearchInputValue);
@@ -28,7 +59,28 @@
 	// show in the page
 	var searchResultElement = document.getElementById('searchResult');
 	searchResultElement.innerHTML = 'Search Input: ' + storedSearchInputValue;
+
+    // Send search input to backend and recieve results
+    // 使用 Fetch API 發送 POST 請求
+    fetch('/receiveInput', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({inputText: storedSearchInputValue}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('jsonResult').innerText = JSON.stringify(data, null, 2);
+        console.log('Response json from server');
+    })
+    .catch(error => {
+        console.error('Error fetching JSON:', error);
+        console.error('Response text:', error.responseText);
+    });
+
 	});
+
 </script>
 
 </body>
