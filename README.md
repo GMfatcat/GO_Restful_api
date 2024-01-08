@@ -88,7 +88,7 @@ _Git clone the project or download the whole ZIP file._
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## Architecture & Usage
+## Architecture and Usage
 
 ![Architecture](/repo_asset/architecture.png)
 
@@ -96,6 +96,7 @@ Architecture:
 * Frontend (User + Homepage + Result page)
 * Backend (HTTP Server + SQL Server + File Server)
 * Data Provider (Generate json data)
+* Middleware Logger (save as "log.txt")
 
 Data Provider:
 * Argparse script for generating data, see arguments info below  
@@ -146,6 +147,8 @@ Backend Usage:
    // After start the server , Open browser, type "http://localhost:9487" in url section.
    go run server.go
    ```
+Server Log example after Server started
+![Server Log](/repo_asset/server-log.jpg)
 
 Frontend Usage ([example video](https://youtu.be/vzdCxp50BXs)):
 * Connect to Homepage
@@ -154,6 +157,10 @@ Frontend Usage ([example video](https://youtu.be/vzdCxp50BXs)):
    You can change the port in "server.go"
    ```
 * Query dates for json data (Date format:XXXX-XX-XX)
+   ```
+   Available Name same as the filename in ./data
+   Current Available : <2022-01-01> to <2022-01-30> 
+   ```
 * Auto-display json data (if data exists)
 * Save json & Generate Leaflet map by button
 
