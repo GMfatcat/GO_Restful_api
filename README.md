@@ -7,9 +7,9 @@
 -->
 
 [![Static Badge](https://img.shields.io/badge/Python-3.10-green)
-](https://www.python.org/)    
+](https://www.python.org/)  
 [![Static Badge](https://img.shields.io/badge/Go-1.19-green)
-](https://go.dev/)    
+](https://go.dev/)  
 [![Static Badge](https://img.shields.io/badge/PostgreSQL-16.1-green)
 ](https://www.postgresql.org/)
 
