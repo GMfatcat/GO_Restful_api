@@ -147,7 +147,7 @@ Backend Usage:
    go run server.go
    ```
 
-Frontend Usage ([example video](https://youtu.be/cUN5b4UNa5A)):
+Frontend Usage ([example video](https://youtu.be/vzdCxp50BXs)):
 * Connect to Homepage
    ```
    Open browser, type "http://localhost:9487" in url section.
