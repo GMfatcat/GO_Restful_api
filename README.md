@@ -73,10 +73,15 @@ Functions of the project :smile:
 
 ### Prerequisites
 
-* Version
+* Language Version
   ```
   Python >= 3.7
   Go >= 1.12 (using go mod)
+  ```
+* Package
+pq : Go PostgreSQL Driver
+  ```
+  go get github.com/lib/pq
   ```
 
 ### Installation
@@ -103,31 +108,56 @@ _Git clone the project or download the whole ZIP file._
 Architecture:
 * Frontend (User + Homepage + Result page)
 * Backend (HTTP Server + SQL Server + File Server)
-* Data (Generate json data)
+* Data Provider (Generate json data)
+
+Data Provider:
+* Argparse script for generating data, see arguments info below
+   ```
+   usage: generate_data.py [-h] [--max_position MAX_POSITION] [--max_num MAX_NUM] [--days DAYS] [--start_date START_DATE]
+
+   options:
+  -h, --help            show this help message and exit
+  --max_position MAX_POSITION Maximum number of positions to generate.
+  --max_num MAX_NUM     Maximum number of objects to generate.
+  --days DAYS           Number of days between to generate.
+  --start_date START_DATE Start date in the format YYYY-MM-DD.
+
+  Quick example: python generate_data.py --max_position 30 --max_num 30 --days 20 --start_date 2023-01-05
+   ```
+* Modify coordinates range if necessary
+   ```
+   edit in generate_data.py line 24 & 25
+   ```
+* Run the script without any arguments is fine **but those data has already been generated in "./data" folder**
+* Save json in "./data"
 
 Backend Usage:
-* Connect to Homepage
+* Configure your PostgreSQL database user / dbname / password in **"./action/connector/Connector.go"**
+* Add json data to SQL database
    ```
-   Open browser, type "http://localhost:9487" in url section.
-   You can change the port in **server.go**.
+   // change the *addNewData* to true in add_data.go, default to be false
+   go run add_data.go
    ```
-* Query dates for json data
-* Auto-display json data (if data exists)
-* Save json & Generate Leaflet map by button
-
-Connect to Homepage2
+* Query dates for sql data
    ```
-   Open browser, type "http://localhost:9487" in url section.
-   You can change the port in **server.go**.
+   // v1 & v2 differences see test_backend.go
+   go run test_backend.go
+   ```
+* Run Http Server - **Must run before ANY Frontend Usage!!!**
+   ```
+   // After start the server , Open browser, type "http://localhost:9487" in url section.
+   go run server.go.
    ```
 
 Frontend Usage ([example video](https://youtu.be/cUN5b4UNa5A)):
 * Connect to Homepage
-* Query dates for json data
+   ```
+   Open browser, type "http://localhost:9487" in url section.
+   You can change the port in "server.go"
+   ```
+* Query dates for json data (Date format:XXXX-XX-XX)
 * Auto-display json data (if data exists)
 * Save json & Generate Leaflet map by button
-
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
