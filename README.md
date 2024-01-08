@@ -100,22 +100,34 @@ _Git clone the project or download the whole ZIP file._
 
 ![Architecture](/repo_img/architecture.png)
 
-Explanation:
+Architecture:
 * Frontend (User + Homepage + Result page)
 * Backend (HTTP Server + SQL Server + File Server)
 * Data (Generate json data)
 
-
-
-Functions of the playbook:
-* [Create multiple stages of a play](https://youtu.be/xIRyIBRq4f0)
-* [Canvas Edit](https://youtu.be/oSktTL51x68)
-* [Replay mode to review the plays](https://youtu.be/cUN5b4UNa5A)
-
-Saving directory
+Backend Usage:
+* Connect to Homepage
    ```
-   game/save/YOUR_PLAY_NAME_CURRENT_TIME.json
+   Open browser, type "http://localhost:9487" in url section.
+   You can change the port in **server.go**.
    ```
+* Query dates for json data
+* Auto-display json data (if data exists)
+* Save json & Generate Leaflet map by button
+
+Connect to Homepage2
+   ```
+   Open browser, type "http://localhost:9487" in url section.
+   You can change the port in **server.go**.
+   ```
+
+Frontend Usage ([example video](https://youtu.be/cUN5b4UNa5A)):
+* Connect to Homepage
+* Query dates for json data
+* Auto-display json data (if data exists)
+* Save json & Generate Leaflet map by button
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -123,12 +135,25 @@ Saving directory
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Replay Mode
-- [x] Portable saving (JSON)
-- [ ] More scalable screen size
-- [ ] Multi-language Support
-    - [x] English
-    - [ ] Traditional Chinese
+I am trying to combine this project with my another geohash project.  
+That project can use geohash to find several groups of what3words.  
+
+- [x] Data Generator
+- [x] SQL Server for Data
+- [x] Go HTTP Server
+- [ ] Backend Functions
+    - [x] JSON to SQL Server
+    - [x] Query SQL TABLE
+    - [x] Middleware Logger
+    - [ ] Update / Delete TABLE
+    - [ ] TBD
+- [ ] Frontend Functions
+    - [x] Webpage
+    - [x] Query data
+    - [x] Save JSON data
+    - [x] Interactive Map (Leaflet)
+    - [ ] Direct "curl / get" to access data
+    - [ ] TBD
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -146,16 +171,12 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
 ## Contact
@@ -164,15 +185,13 @@ GMfatcat : [github](https://github.com/GMfatcat)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-I've included all of free image resources to kick things off!
+I've included all of free resources to kick things off!
 
-* [Court](https://www.pinterest.com/pin/top-down-view-of-basketball-court--791437334516569235/)
-* [Player Icon](https://www.cleanpng.com/png-computer-icons-silhouette-my-account-icon-4681697/)
-* [Ball](https://www.flaticon.com/free-icon/basketball-ball_4354908)
+* [Mainpage Background Cat Image](https://playgroundai.com/)
+* [Webpage Template](https://bootstrapmade.com/append-bootstrap-website-template/)
+* [Architecture Image](https://excalidraw.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
