@@ -5,13 +5,11 @@
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-<a name="readme-top"></a>
 
 [![Static Badge](https://img.shields.io/badge/Python-3.10-green)
-](https://www.python.org/)
+](https://www.python.org/)    
 [![Static Badge](https://img.shields.io/badge/Go-1.19-green)
-](https://go.dev/)
+](https://go.dev/)    
 [![Static Badge](https://img.shields.io/badge/PostgreSQL-16.1-green)
 ](https://www.postgresql.org/)
 
@@ -49,6 +47,7 @@
 ![Main Page](/repo_img/mainpage.png)
 
 This is the simple fullstack project using **Go,Python,SQL,HTML,CSS and Javascript**.
+    
 User can query dates to get & save json data, aslo leaflet maps.
 
 Functions of the project :smile:
