@@ -30,7 +30,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#architecture-and-usage">Architecture & Usage</a></li>
+    <li><a href="#architecture-and-usage">Architecture and Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -103,7 +103,7 @@ Architecture:
 * Data Provider (Generate json data)
 
 Data Provider:
-* Argparse script for generating data, see arguments info below
+* Argparse script for generating data, see arguments info below  
 Run whitout arguments
    ```
    python generate_data.py
