@@ -6,12 +6,7 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 <a name="readme-top"></a>
-[![Static Badge](https://img.shields.io/badge/Python-3.10-green)
-](https://www.python.org/)
-[![Static Badge](https://img.shields.io/badge/Go-1.19-green)
-](https://go.dev/)
-[![Static Badge](https://img.shields.io/badge/PostgreSQL-16.1-green)
-](https://www.postgresql.org/)
+[![Static Badge](https://img.shields.io/badge/Python-3.10-green)](https://www.python.org/) [![Static Badge](https://img.shields.io/badge/Go-1.19-green)](https://go.dev/) [![Static Badge](https://img.shields.io/badge/PostgreSQL-16.1-green)](https://www.postgresql.org/)
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -104,6 +99,7 @@ Architecture:
 
 Data Provider:
 * Argparse script for generating data, see arguments info below  
+
 Run whitout arguments
    ```
    python generate_data.py
@@ -139,6 +135,11 @@ Backend Usage:
    ```
    // v1 & v2 differences see test_backend.go
    go run test_backend.go
+   ```
+* Test Communication between frontend and backend
+   ```
+   // After start the server , Open browser, type "http://localhost:8080" in url section.
+   go run test_frontend.go
    ```
 * Run Http Server - **Must run before ANY Frontend Usage!!!**
    ```
