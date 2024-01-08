@@ -66,3 +66,7 @@ Time: 2024-01-08T10:30:13+08:00, User: Batman, Query: 2022-01-32
 Time: 2024-01-08T10:30:13+08:00, User: Batman, Query: data_2022_01_32, HTTP Code: 404
 Time: 2024-01-08T10:30:13+08:00, User: Batman3, Query: 2022-01-02
 Time: 2024-01-08T10:30:13+08:00, User: Batman3, Query: data_2022_01_02, HTTP Code: 200
+Time: 2024-01-08T11:02:47+08:00, User: [::1]:57168, Query: 2022-01-16
+Time: 2024-01-08T11:02:48+08:00, User: [::1]:57168, Query: data_2022_01_16, HTTP Code: 200
+Time: 2024-01-08T11:07:00+08:00, User: [::1]:57237, Query: 2022-01-01
+Time: 2024-01-08T11:07:00+08:00, User: [::1]:57237, Query: data_2022_01_01, HTTP Code: 200

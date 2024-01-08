@@ -20,11 +20,12 @@ import (
 )
 
 const (
-	port         = ":9487"
-	dataDir      = "./data/"
-	successMsg   = "Input received successfully"
-	errorMsg     = "Error processing request"
-	getDataError = "Error getting data"
+	port            = ":9487"
+	dataDir         = "./data/"
+	successMsg      = "Input received successfully"
+	errorMsg        = "Error processing request"
+	getDataError    = "Error getting data"
+	httpMethodError = "http method not allowed"
 )
 
 func handleGetJSON(querySuccess bool, queryFilename string) ([]byte, error) {
@@ -56,6 +57,12 @@ func backendProcess(user, query string) (bool, error) {
 
 // 處理接收前端傳來的字串
 func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
+	// 限制http request為POST
+	if r.Method != http.MethodPost {
+		http.Error(w, httpMethodError, http.StatusMethodNotAllowed)
+		log.Println(httpMethodError)
+		return
+	}
 	// 紀錄使用者的ip
 	userIP := r.RemoteAddr
 	// 解碼 JSON 資料
@@ -93,11 +100,12 @@ func handleReceiveInput(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("Starting...")
 	// Router
-	http.HandleFunc("/receiveInput", handleReceiveInput)
+	router := http.NewServeMux()
+	router.HandleFunc("/receiveInput", handleReceiveInput)
 	// 設定靜態資源伺服器，指向存放HTML文件的資料夾
-	http.Handle("/", http.FileServer(http.Dir("frontend")))
+	router.Handle("/", http.FileServer(http.Dir("frontend")))
 
 	// 啟動 HTTP 服務器，監聽在 8080 端口
 	fmt.Printf("Server is running on http://localhost%s\n", port)
-	http.ListenAndServe(port, nil)
+	http.ListenAndServe(port, router)
 }
