@@ -19,7 +19,7 @@ def generate_objects(max_position, max_num) -> dict:
     data = {"lons": [], "lats": [], "counts": []}
     # decide actual position number (min for 1)
     actual_position = random.randint(1, max_position)
-    # generate fake data (lon & lat range inside Taiwan)
+    # generate fake data (lon & lat range)
     for _ in range(actual_position):
         longitude = random.uniform(119, 112)
         latitude = random.uniform(20.5, 25.5)

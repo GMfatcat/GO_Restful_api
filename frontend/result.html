@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result Page</title>
+    <!-- 在<head>部分引入 Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
+
 <body>
 
 <h2>This is the Result Page</h2>
@@ -14,74 +18,14 @@
 <div id="searchResult"></div>
 <p></p>
 <button onclick="saveJSON()">Save JSON</button>
-<button onclick="goBack()">Go Back to Homepage</button>
+<button onclick="showMap()">Show Map ↓↓</button>
+<button onclick="goBack()">Homepage</button>
 <p>JSON: </p>
 <pre id="jsonResult"></pre>
+<div id="map" style="height: 600px;"></div>
 
-<script>
-    function saveJSON() {
-
-        const jsonData = document.getElementById('jsonResult').innerText;
-
-        if (jsonData !== '') {
-
-            console.log("Save JSON");
-            const blob = new Blob([jsonData], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            // 創建一個動態的 <a> 元素
-            const a = document.createElement('a');
-            a.href = url;
-            // 使用者可選下載位置/名稱
-            a.download = '';
-            document.body.appendChild(a);
-            // 觸發點擊事件，開始下載
-            a.click();
-            // 刪除動態創建的 <a> 元素
-            document.body.removeChild(a);
-            // 釋放 Blob 的 URL
-            URL.revokeObjectURL(url);
-
-        } else {
-            console.log("No JSON data, nothing to save");
-        }
-    }
-
-    function goBack() {
-        window.history.back();
-    }
-
-	// Load JSON Data immediately after page load
-    document.addEventListener('DOMContentLoaded', function () {
-    // get value from localStorage
-    var storedSearchInputValue = localStorage.getItem('searchInputValue');
-    console.log('Stored Search Input:', storedSearchInputValue);
-
-	// show in the page
-	var searchResultElement = document.getElementById('searchResult');
-	searchResultElement.innerHTML = 'Search Input: ' + storedSearchInputValue;
-
-    // Send search input to backend and recieve results
-    // 使用 Fetch API 發送 POST 請求
-    fetch('/receiveInput', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({inputText: storedSearchInputValue}),
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('jsonResult').innerText = JSON.stringify(data, null, 2);
-        console.log('Response json from server');
-    })
-    .catch(error => {
-        console.error('Error fetching JSON:', error);
-        console.error('Response text:', error.responseText);
-    });
-
-	});
-
-</script>
+<!-- 引入 result.js -->
+<script src="result.js" defer></script>
 
 </body>
 </html>
