@@ -39,7 +39,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Main Page](/repo_img/mainpage.png)
+![Main Page](/repo_asset/mainpage.png)
 
 This is the simple fullstack project using **Go,Python,SQL,HTML,CSS and Javascript**.
     
@@ -53,7 +53,7 @@ Functions of the project :smile:
 
 ### Developer Report
 
-* [How to get better in this project](frontend/Readme.txt)
+* [How to get better in this project](/repo_asset/Developer_Report.md)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -90,7 +90,7 @@ _Git clone the project or download the whole ZIP file._
 <!-- USAGE EXAMPLES -->
 ## Architecture & Usage
 
-![Architecture](/repo_img/architecture.png)
+![Architecture](/repo_asset/architecture.png)
 
 Architecture:
 * Frontend (User + Homepage + Result page)
