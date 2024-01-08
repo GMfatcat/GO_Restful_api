@@ -5,11 +5,11 @@
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
-
+<a name="readme-top"></a>
 [![Static Badge](https://img.shields.io/badge/Python-3.10-green)
-](https://www.python.org/)-
+](https://www.python.org/)
 [![Static Badge](https://img.shields.io/badge/Go-1.19-green)
-](https://go.dev/)-
+](https://go.dev/)
 [![Static Badge](https://img.shields.io/badge/PostgreSQL-16.1-green)
 ](https://www.postgresql.org/)
 
@@ -20,7 +20,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#Developer Report">Developer Report</a></li>
+        <li><a href="#developer-report">Developer Report</a></li>
       </ul>
     </li>
     <li>
@@ -30,7 +30,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Architecture & Usage</a></li>
+    <li><a href="#architecture-and-usage">Architecture & Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -143,7 +143,7 @@ Backend Usage:
 * Run Http Server - **Must run before ANY Frontend Usage!!!**
    ```
    // After start the server , Open browser, type "http://localhost:9487" in url section.
-   go run server.go.
+   go run server.go
    ```
 
 Frontend Usage ([example video](https://youtu.be/cUN5b4UNa5A)):
