@@ -7,9 +7,9 @@
 -->
 
 [![Static Badge](https://img.shields.io/badge/Python-3.10-green)
-](https://www.python.org/)
+](https://www.python.org/)-
 [![Static Badge](https://img.shields.io/badge/Go-1.19-green)
-](https://go.dev/)
+](https://go.dev/)-
 [![Static Badge](https://img.shields.io/badge/PostgreSQL-16.1-green)
 ](https://www.postgresql.org/)
 
@@ -20,7 +20,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#Developer Report">Developer Report</a></li>
       </ul>
     </li>
     <li>
@@ -56,17 +56,9 @@ Functions of the project :smile:
 * Lightweight HTTP Server --> Go
 * Interactive Web Page --> HTML,CSS and Javascript
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Developer Report
 
-### Built With
-
-* [![Static Badge](https://img.shields.io/badge/Python-3.7-green)
-](https://www.python.org/)
-* [![Static Badge](https://img.shields.io/badge/Pygame-2.1.2-green)
-](https://www.pygame.org/news)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+* [How to get better in this project](frontend/Readme.txt)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -112,6 +104,11 @@ Architecture:
 
 Data Provider:
 * Argparse script for generating data, see arguments info below
+Run whitout arguments
+   ```
+   python generate_data.py
+   ```
+Run with arguments
    ```
    usage: generate_data.py [-h] [--max_position MAX_POSITION] [--max_num MAX_NUM] [--days DAYS] [--start_date START_DATE]
 
@@ -122,7 +119,7 @@ Data Provider:
   --days DAYS           Number of days between to generate.
   --start_date START_DATE Start date in the format YYYY-MM-DD.
 
-  Quick example: python generate_data.py --max_position 30 --max_num 30 --days 20 --start_date 2023-01-05
+  Example: python generate_data.py --max_position 30 --max_num 30 --days 20 --start_date 2023-01-05
    ```
 * Modify coordinates range if necessary
    ```
@@ -199,21 +196,15 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- CONTACT -->
 ## Contact
 
 GMfatcat : [github](https://github.com/GMfatcat)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
