@@ -1,0 +1,4 @@
+1. Generate Geohash-W3W Database
+2. Query one location, give nearest w3w (many pairs of 3 words)
+3. Translation (chatting) those 3 words with LLM (from HuggingFace)
+4. Generate some AI images of those 3 words (local done, and return to user)
