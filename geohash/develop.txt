@@ -7,3 +7,6 @@ FASTAPI:
 1. Support for w3w location queries (from w3w api) -- directly get()
 2. Support for specific location nearest w3w (many pairs of 3 words) -- directly get()
 3. Support for returning the specific w3w's ai image (only the webpage)
+
+# run FASTAPI Server
+uvicorn main:app --reload
