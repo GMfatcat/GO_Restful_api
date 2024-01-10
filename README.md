@@ -171,7 +171,8 @@ Frontend Usage ([example video](https://youtu.be/vzdCxp50BXs)):
 ## Roadmap
 
 I am trying to combine this project with my another geohash project.  
-That project can use geohash to find several groups of what3words.  
+That project can use geohash to find several groups of what3words. 
+Combination will be in the `develop` branch.
 
 - [x] Data Generator
 - [x] SQL Server for Data

@@ -105,7 +105,7 @@ func main() {
 	// 設定靜態資源伺服器，指向存放HTML文件的資料夾
 	router.Handle("/", http.FileServer(http.Dir("frontend")))
 
-	// 啟動 HTTP 服務器，監聽在 8080 端口
+	// 啟動 HTTP 服務器，監聽在 9487 端口
 	fmt.Printf("Server is running on http://localhost%s\n", port)
 	http.ListenAndServe(port, router)
 }
