@@ -2,3 +2,8 @@
 2. Query one location, give nearest w3w (many pairs of 3 words)
 3. Translation (chatting) those 3 words with LLM (from HuggingFace)
 4. Generate some AI images of those 3 words (local done, and return to user)
+
+FASTAPI:
+1. Support for w3w location queries (from w3w api) -- directly get()
+2. Support for specific location nearest w3w (many pairs of 3 words) -- directly get()
+3. Support for returning the specific w3w's ai image (only the webpage)
